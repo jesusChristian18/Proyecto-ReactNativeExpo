@@ -20,12 +20,19 @@ export default function Accounts(){
     if(login == null) return <Loading isVisible={true} text="cargando..."></Loading>;
     //metodo 1 con el if  = ? y else = :
   /*   return login ? <UserLogged></UserLogged> :<UserGuest></UserGuest>; */
-
+    // secureTextEntry={showPassword ? false : true}
   //metodo 2 con el if y else
+    
+ 
+
+
+
+
     if(login){
         return <UserLogged></UserLogged>;
     }
     else{
         return <UserGuest></UserGuest>;
     }
+
 }
