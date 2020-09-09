@@ -1,0 +1,29 @@
+Esto es algo que tiene que arreglar el desarrollador del package react-native-easy-toast pero mientras lo hace te dejo un parque para solucionarlo.
+
+1.Ve a node modules y encuentra react-native-easy-toast
+
+2.Abre el archivo index.js
+
+3.busca el metodo show y busca esta funcion
+
+this.animation = Anima
+
+ted.timing(
+        this.state.opacityValue,
+            {
+                toValue: this.props.opacity,
+                duration: this.props.fadeInDuration,
+                useNativeDriver: true,//AGREGA ESTA LINEA DE CODIGO
+            }
+        )
+4.busca el metodo close
+
+ this.timer = setTimeout(() => {
+            this.animation = Animated.timing(
+                this.state.opacityValue,
+                {
+                    toValue: 0.0,
+                    duration: this.props.fadeOutDuration,
+                    useNativeDriver: true,//AGREGA ESTA LINEA
+                }
+            )

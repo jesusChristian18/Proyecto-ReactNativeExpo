@@ -3,20 +3,23 @@ import {StyleSheet, View} from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
 import { size, isEmpty } from "lodash";
 import Toast from "react-native-easy-toast";
-import Loading from "../Loading";
 import { validateEmail } from "../../utils/validations";
-
 import * as firebase from "firebase";
-
 import {useNavigation} from "@react-navigation/native";
+import Loading from "../Loading";
+
+
+
+
+
 export default function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(defaultFormValue());
   const { toastRef } = props;
-
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  
   const [loading, setloading] = useState(false);
+ 
+  
+  
   const navigation = useNavigation();
 
   const onChange = (e, type) => {
@@ -28,6 +31,18 @@ export default function LoginForm(props) {
     if (isEmpty(formData.email) || isEmpty(formData.password)){
       console.log("entro");
       toastRef.current.show("todos los campos son obligatorios");
+    }else if(!validateEmail(formData.email)){
+      toastRef.current.show("Email incorrecto");
+    }else{
+      setloading(true);
+      firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+      .then(() =>{
+        setloading(false);
+        navigation.navigate("account");
+      })
+      .catch(() => {
+        toastRef.current.show("Email o contraseña incorrecta");
+      })
     }
   };
     return (
@@ -69,6 +84,7 @@ export default function LoginForm(props) {
         buttonStyle={styles.btnIniciar}
         onPress={onSubmit}
       />
+      <Loading isVisible={loading} text="Iniciando Sesion"/>
         </View>
     );
 }

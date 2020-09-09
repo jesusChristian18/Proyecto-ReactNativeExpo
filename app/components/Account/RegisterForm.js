@@ -39,9 +39,10 @@ export default function RegisterForm(props) {
        firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password).
        then(() =>{
         setloading(false);   
-        navigation.navigate("account");
+        navigation.navigate("login");
        }).catch(
            err => {
+            setloading(false); 
               toastRef.current.show("El email esta ya en uso, vuelva a intentarlo nuevamente!!!");
            }
        );
@@ -118,7 +119,7 @@ export default function RegisterForm(props) {
         title="Regresar"
         containerStyle={styles.btnContainerRegister}
         buttonStyle={styles.btnRegister}
-        onPress={() => navigation.navigate("favorites")}
+        onPress={() => navigation.navigate("login")}
 
       />
       <Loading isVisible={loading} text="Creando Cuenta"/>
