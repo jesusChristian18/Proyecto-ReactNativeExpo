@@ -6,7 +6,7 @@ import Loading from "../../components/Loading";
 import * as firebase from "firebase";
 import InfoUser from "../../components/Account/InfoUser";
 export default function UserLogged(){
-    
+    const [userInfo, setUserInfo] = useState(null)
     const [loading, setloading] = useState(false)
     const [loadingText, setloadingText] = useState("")
     const toastRef =useRef();
@@ -14,12 +14,15 @@ export default function UserLogged(){
     useEffect(() => {
        (async () => {
            const user = await firebase.auth().currentUser;
-           console.log(user);
+           setUserInfo(user);
        })()
     }, [])
     return(
         <View style={styles.viewUserInfo}>
-            <InfoUser />
+
+            {userInfo && <InfoUser userInfo={userInfo} toastRef={toastRef} />}
+
+          
             <Text>AccountOptions</Text>
 
 
